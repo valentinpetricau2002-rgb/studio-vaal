@@ -106,25 +106,25 @@
       color-mix(in oklch, var(--ink) 28%, transparent) 45%, color-mix(in oklch, var(--ink) 62%, transparent) 100%); }
   .hero-content { position:relative; z-index:2; color:var(--cream);
     width:min(820px,90vw); display:flex; flex-direction:column; align-items:center; }
-  .hero-logo { width:clamp(280px,46vw,560px); height:auto; margin-bottom:10px;
+  .hero-logo { width:clamp(220px,30vw,420px); height:auto; margin-bottom:10px;
     opacity:0; transform:translateY(24px); animation:rise 1.3s .15s var(--ease) forwards; }
   .hero-content .sub { margin-top:10px; max-width:48ch; font-size:clamp(1rem,1.7vw,1.22rem);
     color:color-mix(in oklch, var(--cream) 92%, transparent); line-height:1.65;
     opacity:0; transform:translateY(24px); animation:rise 1.3s .5s var(--ease) forwards; }
   @keyframes rise { to { opacity:1; transform:none; } }
 
-  /* hero pe telefon: randarea intreaga sus + panou cald cu logo */
+  /* hero pe telefon: zoom pe canapea + logo centrat peste imagine (~1/3 latime) */
   @media(max-width:760px){
-    .hero { min-height:auto; display:block; }
-    .hero-img { position:static; }
-    .hero-img img { width:100%; height:auto; aspect-ratio:16/9; object-fit:cover; }
-    .hero::after { display:none; }
-    .hero-content { position:static; width:auto; text-align:center; align-items:center;
-      background:var(--olive-dp); color:var(--cream); padding:46px 24px 54px; }
-    .hero-logo { width:min(68vw,300px); margin-bottom:16px; animation:none; opacity:1; transform:none; }
-    .hero-content .sub { color:color-mix(in oklch, var(--cream) 90%, transparent);
-      max-width:38ch; animation:none; opacity:1; transform:none; }
-    .scroll-hint { display:none; }
+    .hero { min-height:100svh; }
+    .hero-img img { height:110%; object-fit:cover; object-position:50% 60%; }
+    .hero::after { background:linear-gradient(180deg,
+        color-mix(in oklch, var(--ink) 34%, transparent) 0%,
+        color-mix(in oklch, var(--ink) 14%, transparent) 44%,
+        color-mix(in oklch, var(--ink) 60%, transparent) 100%); }
+    .hero-content { padding-bottom:0; }
+    .hero-logo { width:34vw; min-width:130px; margin-bottom:14px; animation:none; opacity:1; transform:none; }
+    .hero-content .sub { font-size:.95rem; max-width:30ch; animation:none; opacity:1; transform:none; }
+    .scroll-hint { display:block; }
   }
   .scroll-hint { position:absolute; z-index:2; right:clamp(20px,5vw,56px); bottom:clamp(48px,9vh,110px);
     color:var(--cream); writing-mode:vertical-rl; font-size:.7rem; letter-spacing:.3em;
@@ -472,7 +472,7 @@
   // hero parallax
   const heroImg = document.querySelector('.hero-img img');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (heroImg && !reduce) {
+  if (heroImg && !reduce && innerWidth > 760) {
     let raf = false;
     addEventListener('scroll', () => {
       if (raf) return; raf = true;
