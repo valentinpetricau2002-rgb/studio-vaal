@@ -106,12 +106,26 @@
       color-mix(in oklch, var(--ink) 28%, transparent) 45%, color-mix(in oklch, var(--ink) 62%, transparent) 100%); }
   .hero-content { position:relative; z-index:2; color:var(--cream);
     width:min(820px,90vw); display:flex; flex-direction:column; align-items:center; }
-  .hero-logo { width:clamp(240px,38vw,460px); margin-bottom:6px;
+  .hero-logo { width:clamp(280px,46vw,560px); height:auto; margin-bottom:10px;
     opacity:0; transform:translateY(24px); animation:rise 1.3s .15s var(--ease) forwards; }
   .hero-content .sub { margin-top:10px; max-width:48ch; font-size:clamp(1rem,1.7vw,1.22rem);
     color:color-mix(in oklch, var(--cream) 92%, transparent); line-height:1.65;
     opacity:0; transform:translateY(24px); animation:rise 1.3s .5s var(--ease) forwards; }
   @keyframes rise { to { opacity:1; transform:none; } }
+
+  /* hero pe telefon: randarea intreaga sus + panou cald cu logo */
+  @media(max-width:760px){
+    .hero { min-height:auto; display:block; }
+    .hero-img { position:static; }
+    .hero-img img { width:100%; height:auto; aspect-ratio:16/9; object-fit:cover; }
+    .hero::after { display:none; }
+    .hero-content { position:static; width:auto; text-align:center; align-items:center;
+      background:var(--olive-dp); color:var(--cream); padding:46px 24px 54px; }
+    .hero-logo { width:min(68vw,300px); margin-bottom:16px; animation:none; opacity:1; transform:none; }
+    .hero-content .sub { color:color-mix(in oklch, var(--cream) 90%, transparent);
+      max-width:38ch; animation:none; opacity:1; transform:none; }
+    .scroll-hint { display:none; }
+  }
   .scroll-hint { position:absolute; z-index:2; right:clamp(20px,5vw,56px); bottom:clamp(48px,9vh,110px);
     color:var(--cream); writing-mode:vertical-rl; font-size:.7rem; letter-spacing:.3em;
     text-transform:uppercase; opacity:.75; display:flex; align-items:center; gap:14px; }
@@ -265,7 +279,7 @@
 <header class="hero" id="top">
   <div class="hero-img"><img src="images/img4.jpg" alt="Interior living luminos proiectat de Studio VAAL" fetchpriority="high" decoding="async"></div>
   <div class="hero-content">
-    <img class="hero-logo" src="images/LOGO.png" alt="Studio VAAL" width="460" height="575">
+    <img class="hero-logo" src="images/LOGO-trim.png" alt="Studio VAAL" width="959" height="554">
     <p class="sub">Arhitectură &amp; design interior — spații calde și atemporale, calibrate la fiecare detaliu.</p>
   </div>
   <div class="scroll-hint">scroll</div>
