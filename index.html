@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ro" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio VAAL — Design Interior</title>
+<meta name="description" content="Studio VAAL — arhitectură și design interior. Spații calde, atemporale, lucrate cu grijă la fiecare detaliu. Proiecte rezidențiale și comerciale.">
+<link rel="icon" href="images/LOGO.png">
+<meta name="theme-color" content="#5a6347">
+<!-- Open Graph / share -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Studio VAAL — Arhitectură & Design Interior">
+<meta property="og:description" content="Spații calde, atemporale, calibrate la fiecare detaliu.">
+<meta property="og:url" content="https://valentinpetricau2002-rgb.github.io/studio-vaal/">
+<meta property="og:image" content="https://valentinpetricau2002-rgb.github.io/studio-vaal/images/img4.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* canvas: alb curat (NU cream), caldura vine din imagini + accent */
+    --bg:       oklch(0.985 0.004 95);
+    --surface:  oklch(0.965 0.006 95);
+    --ink:      oklch(0.24 0.012 80);   /* near-black cald */
+    --muted:    oklch(0.46 0.013 80);   /* contrast >=4.5 pe bg */
+    --olive:    oklch(0.46 0.052 130);  /* accent brand */
+    --olive-dp: oklch(0.34 0.045 132);
+    --wood:     oklch(0.60 0.075 62);
+    --cream:    oklch(0.97 0.012 95);
+    --line:     color-mix(in oklch, var(--ink) 14%, transparent);
+    --line-soft:color-mix(in oklch, var(--ink) 8%, transparent);
+
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans:  'Inter', system-ui, sans-serif;
+
+    --z-nav: 100; --z-overlay: 200;
+    --ease: cubic-bezier(.16,1,.3,1);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { -webkit-text-size-adjust:100%; }
+  body {
+    font-family:var(--sans); background:var(--bg); color:var(--ink);
+    font-weight:400; line-height:1.6; -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection { background:var(--olive); color:var(--cream); }
+  img { display:block; max-width:100%; }
+  a { color:inherit; }
+  h1,h2,h3 { font-family:var(--serif); font-weight:500; line-height:1.04;
+    letter-spacing:-0.02em; text-wrap:balance; }
+  p { text-wrap:pretty; }
+  .wrap { width:min(1280px,92vw); margin-inline:auto; }
+
+  /* ---------------- NAV ---------------- */
+  nav {
+    position:fixed; inset:0 0 auto 0; z-index:var(--z-nav);
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px clamp(20px,5vw,56px);
+    transition:background .6s var(--ease), padding .6s var(--ease), color .6s var(--ease), border-color .6s var(--ease);
+    border-bottom:1px solid transparent; color:var(--cream);
+  }
+  nav.scrolled {
+    background:color-mix(in oklch, var(--bg) 86%, transparent);
+    backdrop-filter:blur(14px) saturate(1.1);
+    border-color:var(--line-soft); color:var(--ink); padding-block:14px;
+  }
+  .brand { font-family:var(--serif); font-size:1.45rem; font-weight:600;
+    letter-spacing:.18em; display:flex; align-items:center; gap:12px; }
+  .brand svg { width:30px; height:auto; }
+  .brand svg path { stroke:currentColor; stroke-width:2.4; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+  .nav-links { display:flex; gap:36px; font-size:.74rem; letter-spacing:.16em;
+    text-transform:uppercase; font-weight:500; }
+  .nav-links a { text-decoration:none; opacity:.82; position:relative; transition:opacity .3s; }
+  .nav-links a::after { content:''; position:absolute; left:0; bottom:-5px; height:1px;
+    width:0; background:currentColor; transition:width .4s var(--ease); }
+  .nav-links a:hover { opacity:1; } .nav-links a:hover::after { width:100%; }
+  @media(max-width:760px){ .nav-links{display:none;} }
+
+  /* ---------------- HERO ---------------- */
+  .hero { position:relative; min-height:100svh; display:flex; align-items:center;
+    justify-content:center; text-align:center; overflow:hidden; }
+  .hero-img { position:absolute; inset:0; }
+  .hero-img img { width:100%; height:120%; object-fit:cover; will-change:transform; }
+  .hero::after { content:''; position:absolute; inset:0; z-index:1;
+    background:linear-gradient(180deg, color-mix(in oklch, var(--ink) 50%, transparent) 0%,
+      color-mix(in oklch, var(--ink) 28%, transparent) 45%, color-mix(in oklch, var(--ink) 62%, transparent) 100%); }
+  .hero-content { position:relative; z-index:2; color:var(--cream);
+    width:min(820px,90vw); display:flex; flex-direction:column; align-items:center; }
+  .hero-logo { width:clamp(240px,38vw,460px); margin-bottom:6px;
+    opacity:0; transform:translateY(24px); animation:rise 1.3s .15s var(--ease) forwards; }
+  .hero-content .sub { margin-top:10px; max-width:48ch; font-size:clamp(1rem,1.7vw,1.22rem);
+    color:color-mix(in oklch, var(--cream) 92%, transparent); line-height:1.65;
+    opacity:0; transform:translateY(24px); animation:rise 1.3s .5s var(--ease) forwards; }
+  @keyframes rise { to { opacity:1; transform:none; } }
+  .scroll-hint { position:absolute; z-index:2; right:clamp(20px,5vw,56px); bottom:clamp(48px,9vh,110px);
+    color:var(--cream); writing-mode:vertical-rl; font-size:.7rem; letter-spacing:.3em;
+    text-transform:uppercase; opacity:.75; display:flex; align-items:center; gap:14px; }
+  .scroll-hint::after { content:''; width:1px; height:48px; background:currentColor; animation:drip 2.4s var(--ease) infinite; transform-origin:top; }
+  @keyframes drip { 0%{transform:scaleY(0);} 40%{transform:scaleY(1);} 100%{transform:scaleY(0); transform-origin:bottom;} }
+
+  /* ---------------- STATEMENT ---------------- */
+  .statement { padding:clamp(110px,16vh,200px) 0; }
+  .statement .wrap { display:grid; grid-template-columns:1fr 2fr; gap:clamp(32px,6vw,90px);
+    align-items:start; }
+  .statement .label { font-size:.74rem; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--olive); font-weight:600; padding-top:14px; }
+  .statement h2 { font-size:clamp(1.8rem,4vw,3.1rem); font-weight:400; }
+  .statement h2 .accent { color:var(--olive); font-style:italic; }
+  @media(max-width:760px){ .statement .wrap{grid-template-columns:1fr; gap:18px;} }
+
+  /* ---------------- WORK (galerie editoriala, layout variat) ---------------- */
+  .work { padding-bottom:clamp(60px,10vh,120px); }
+  .work-head { display:flex; justify-content:space-between; align-items:baseline;
+    margin-bottom:clamp(40px,7vh,80px); gap:24px; flex-wrap:wrap; }
+  .work-head h2 { font-size:clamp(2rem,5vw,3.4rem); }
+  .work-head span { color:var(--muted); font-size:.95rem; }
+
+  figure { position:relative; overflow:hidden; background:var(--surface); margin:0; }
+  figure img { width:100%; height:100%; object-fit:cover; will-change:transform;
+    transition:transform 1.4s var(--ease); }
+  figure:hover img { transform:scale(1.04); }
+  figcaption { padding:20px 4px 0; }
+  figcaption .ttl { font-family:var(--serif); font-size:1.5rem; font-weight:500; }
+  figcaption .meta { color:var(--muted); font-size:.92rem; margin-top:3px; }
+
+  .work-grid { display:grid; gap:clamp(24px,4vw,56px); }
+  .feature { aspect-ratio:16/9; }
+  .duo { display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,4vw,56px); align-items:end; }
+  .duo .tall { aspect-ratio:4/5; } .duo .wide { aspect-ratio:4/5; }
+  .offset { display:grid; grid-template-columns:1.4fr 1fr; gap:clamp(24px,4vw,56px); align-items:center; }
+  .offset .big { aspect-ratio:3/2; }
+  .offset .txt h3 { font-size:clamp(1.6rem,3vw,2.4rem); margin-bottom:14px; }
+  .offset .txt p { color:var(--muted); max-width:42ch; }
+  @media(max-width:760px){ .duo,.offset{grid-template-columns:1fr;} .feature{aspect-ratio:4/3;} }
+
+  /* ---------------- APPROACH / THEME ---------------- */
+  .approach { background:var(--surface); padding:clamp(110px,16vh,190px) 0;
+    margin-top:clamp(60px,10vh,120px); border-block:1px solid var(--line-soft); }
+  .approach .lead { max-width:60ch; margin-bottom:clamp(56px,8vh,90px); }
+  .approach .lead .label { font-size:.74rem; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--olive); font-weight:600; display:block; margin-bottom:18px; }
+  .approach .lead h2 { font-size:clamp(2.2rem,5vw,3.6rem); }
+  .approach .cols { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:clamp(36px,5vw,72px); }
+  .approach .col h3 { font-size:1.5rem; margin-bottom:12px; }
+  .approach .col p { color:var(--muted); font-size:.98rem; }
+  .approach .col .idx { font-family:var(--serif); font-size:1rem; color:var(--olive);
+    border-top:1px solid var(--line); padding-top:14px; margin-bottom:16px; display:block; }
+
+  .palette { display:flex; gap:0; margin-top:clamp(56px,8vh,90px); border:1px solid var(--line-soft); }
+  .palette .sw { flex:1; height:96px; display:flex; align-items:flex-end; padding:10px;
+    font-size:.66rem; letter-spacing:.08em; }
+  .palette .sw.dark { color:var(--cream); } .palette .sw.light { color:var(--ink); }
+
+  /* ---------------- SERVICES ---------------- */
+  .services { padding:clamp(110px,16vh,190px) 0; }
+  .services .lead { max-width:60ch; margin-bottom:clamp(48px,7vh,80px); }
+  .services .lead .label { font-size:.74rem; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--olive); font-weight:600; display:block; margin-bottom:18px; }
+  .services .lead h2 { font-size:clamp(2.2rem,5vw,3.6rem); }
+  .srv-row { display:grid; grid-template-columns:0.8fr 1.2fr; gap:clamp(20px,5vw,80px);
+    padding:clamp(28px,4vh,44px) 0; border-top:1px solid var(--line); align-items:baseline; }
+  .srv-row:last-child { border-bottom:1px solid var(--line); }
+  .srv-row h3 { font-size:clamp(1.6rem,3vw,2.3rem); }
+  .srv-row p { color:var(--muted); max-width:52ch; }
+  .srv-row .tags { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .srv-row .tags span { font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--olive); border:1px solid var(--line); border-radius:40px; padding:5px 13px; }
+  @media(max-width:760px){ .srv-row{grid-template-columns:1fr; gap:10px;} }
+
+  /* ---------------- TEAM (drenched, carries warmth) ---------------- */
+  .team { background:var(--olive-dp); color:var(--cream); padding:clamp(110px,16vh,200px) 0; }
+  .team .wrap { display:grid; grid-template-columns:0.9fr 1.1fr; gap:clamp(40px,6vw,90px); align-items:center; }
+  .team .portrait { aspect-ratio:4/5; overflow:hidden; background:color-mix(in oklch, var(--olive-dp) 70%, black); }
+  .team .portrait img { width:100%; height:100%; object-fit:cover; }
+  .team .portrait .ph { width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+    color:color-mix(in oklch, var(--cream) 50%, transparent); font-size:.8rem; letter-spacing:.2em; text-transform:uppercase; text-align:center; padding:24px; }
+  .team .label { font-size:.74rem; letter-spacing:.2em; text-transform:uppercase;
+    color:color-mix(in oklch, var(--cream) 75%, transparent); font-weight:600; margin-bottom:20px; }
+  .team h2 { font-size:clamp(2.2rem,5vw,3.6rem); margin-bottom:8px; }
+  .team .role { font-size:1.05rem; color:color-mix(in oklch, var(--cream) 82%, transparent);
+    font-style:italic; font-family:var(--serif); margin-bottom:26px; }
+  .team .bio p { color:color-mix(in oklch, var(--cream) 88%, transparent); max-width:54ch; margin-bottom:16px; }
+  @media(max-width:760px){ .team .wrap{grid-template-columns:1fr; gap:32px;} }
+
+  /* ---------------- CONTACT ---------------- */
+  .contact { padding:clamp(120px,18vh,220px) 0; text-align:center; }
+  .contact .label { font-size:.74rem; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--olive); font-weight:600; margin-bottom:24px; }
+  .contact h2 { font-size:clamp(2.6rem,8vw,5.4rem); font-weight:500; }
+  .contact h2 em { font-style:italic; font-weight:400; }
+  .contact p { color:var(--muted); max-width:48ch; margin:24px auto 44px; }
+  .btn-row { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+  .btn { display:inline-flex; align-items:center; gap:10px; padding:16px 32px; border-radius:6px;
+    font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; text-decoration:none; font-weight:500;
+    transition:transform .35s var(--ease), background .35s var(--ease), color .35s var(--ease); }
+  .btn.primary { background:var(--olive); color:var(--cream); }
+  .btn.primary:hover { transform:translateY(-3px); background:var(--olive-dp); }
+  .btn.ghost { border:1px solid var(--line); }
+  .btn.ghost:hover { transform:translateY(-3px); background:var(--ink); color:var(--bg); border-color:var(--ink); }
+  .contact .mail { display:inline-block; margin-top:28px; color:var(--muted); text-decoration:none;
+    font-size:.95rem; letter-spacing:.04em; border-bottom:1px solid var(--line); padding-bottom:3px;
+    transition:color .3s, border-color .3s; }
+  .contact .mail:hover { color:var(--olive); border-color:var(--olive); }
+
+  footer { border-top:1px solid var(--line-soft); padding:46px 0; }
+  footer .wrap { display:flex; justify-content:space-between; align-items:center; gap:18px; flex-wrap:wrap; }
+  footer .brand { font-size:1.2rem; }
+  footer .copy { color:var(--muted); font-size:.82rem; letter-spacing:.04em; }
+  footer .social a { text-decoration:none; color:var(--muted); font-size:.82rem; letter-spacing:.1em;
+    text-transform:uppercase; transition:color .3s; }
+  footer .social a:hover { color:var(--olive); }
+
+  /* ---------------- REVEAL (safe: visible by default, JS enhances) ---------------- */
+  .js .reveal { opacity:0; transform:translateY(34px); transition:opacity 1s var(--ease), transform 1s var(--ease); }
+  .js .reveal.in { opacity:1; transform:none; }
+  .js figure.reveal img { transform:scale(1.08); }
+  .js figure.reveal.in img { transform:scale(1); }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation:none !important; }
+    .js .reveal { opacity:1 !important; transform:none !important; transition:none; }
+    html { scroll-behavior:auto; }
+    .hero-img img { height:100%; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a class="brand" href="#top" aria-label="Studio VAAL">STUDIO VAAL</a>
+  <div class="nav-links">
+    <a href="#work">Proiecte</a>
+    <a href="#services">Servicii</a>
+    <a href="#approach">Abordare</a>
+    <a href="#team">Echipă</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="hero-img"><img src="images/img4.jpg" alt="Interior living luminos proiectat de Studio VAAL" fetchpriority="high" decoding="async"></div>
+  <div class="hero-content">
+    <img class="hero-logo" src="images/LOGO.png" alt="Studio VAAL" width="460" height="575">
+    <p class="sub">Arhitectură &amp; design interior — spații calde și atemporale, calibrate la fiecare detaliu.</p>
+  </div>
+  <div class="scroll-hint">scroll</div>
+</header>
+
+<!-- STATEMENT -->
+<section class="statement">
+  <div class="wrap">
+    <div class="label reveal">Studio VAAL</div>
+    <h2 class="reveal">Credem în spații liniștite, lucrate cu răbdare. Materiale oneste, proporții corecte și o <span class="accent">căldură</span> care rămâne actuală mult după ce tendințele trec.</h2>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="work" id="work">
+  <div class="wrap">
+    <div class="work-head reveal">
+      <h2>Proiecte selectate</h2>
+      <span>Rezidențial · 2024–2025</span>
+    </div>
+
+    <div class="work-grid">
+
+      <figure class="feature reveal">
+        <img src="images/img2.jpg" alt="Living deschis cu perete media din stejar și zonă de dining" loading="lazy" decoding="async">
+        <figcaption><span class="ttl">Living & Dining</span><span class="meta">Apartament — open space cu accente de stejar</span></figcaption>
+      </figure>
+
+      <div class="duo">
+        <figure class="tall reveal">
+          <img src="images/img1.jpg" alt="Canapea bouclé și masă din lemn masiv lângă ferestre cu draperii verzi" loading="lazy" decoding="async">
+          <figcaption><span class="ttl">Zona de zi</span><span class="meta">Bouclé, in și verde măsliniu</span></figcaption>
+        </figure>
+        <figure class="wide reveal">
+          <img src="images/img3.jpg" alt="Perete TV cu bibliotecă sculptată din lemn" loading="lazy" decoding="async">
+          <figcaption><span class="ttl">Perete media</span><span class="meta">Bibliotecă-paravan din lemn</span></figcaption>
+        </figure>
+      </div>
+
+      <div class="offset">
+        <figure class="big reveal">
+          <img src="images/img5.jpg" alt="Hol de intrare cu perete texturat și scară din lemn" loading="lazy" decoding="async">
+        </figure>
+        <div class="txt reveal">
+          <h3>Hol & circulații</h3>
+          <p>Primirea casei tratată ca un spațiu în sine: perete texturat în val, treceri din lemn și o lumină caldă care ghidează spre living.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH / THEME -->
+<section class="approach" id="approach">
+  <div class="wrap">
+    <div class="lead reveal">
+      <span class="label">Abordarea noastră</span>
+      <h2>Japandi cald — minimalism nordic întâlnit cu liniștea japoneză.</h2>
+    </div>
+    <div class="cols">
+      <div class="col reveal">
+        <span class="idx">Materiale</span>
+        <h3>Onest & tactil</h3>
+        <p>Stejar natur, bouclé moale, in și piatră. Texturi care invită la atingere și îmbătrânesc frumos.</p>
+      </div>
+      <div class="col reveal">
+        <span class="idx">Lumină</span>
+        <h3>Filtrată & caldă</h3>
+        <p>Voal alb peste draperii grele. Corpuri de iluminat sculpturale, ca puncte de accent discrete.</p>
+      </div>
+      <div class="col reveal">
+        <span class="idx">Culoare</span>
+        <h3>Calmă & atemporală</h3>
+        <p>Neutre profunde, verde măsliniu, maro de lemn. O paletă care nu obosește privirea.</p>
+      </div>
+    </div>
+    <div class="palette reveal" aria-hidden="true">
+      <div class="sw light" style="background:var(--cream)">Cream</div>
+      <div class="sw light" style="background:var(--wood)">Lemn</div>
+      <div class="sw dark" style="background:var(--olive)">Măsliniu</div>
+      <div class="sw dark" style="background:var(--olive-dp)">Olive deep</div>
+      <div class="sw dark" style="background:var(--ink)">Ink</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="lead reveal">
+      <span class="label">Servicii</span>
+      <h2>De la concept la cheie — un singur partener.</h2>
+    </div>
+
+    <div class="srv-row reveal">
+      <h3>Arhitectură</h3>
+      <div>
+        <p>Concept arhitectural, planuri și volumetrie pentru locuințe și spații comerciale. Gândim clădirea și lumina înainte de orice obiect.</p>
+        <div class="tags"><span>Concept</span><span>Planuri</span><span>Autorizații</span></div>
+      </div>
+    </div>
+
+    <div class="srv-row reveal">
+      <h3>Design interior</h3>
+      <div>
+        <p>Amenajare completă: zonificare, mobilier la comandă, materiale, lumină și styling. Randări 3D foto-realiste înainte de execuție.</p>
+        <div class="tags"><span>Randări 3D</span><span>Mobilier la comandă</span><span>Materiale</span></div>
+      </div>
+    </div>
+
+    <div class="srv-row reveal">
+      <h3>Proiect la cheie</h3>
+      <div>
+        <p>Coordonăm execuția de la prima schiță până la predarea cheilor — echipe, furnizori și termene, fără bătăi de cap pentru tine.</p>
+        <div class="tags"><span>Management</span><span>Execuție</span><span>Predare</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team" id="team">
+  <div class="wrap">
+    <div class="portrait reveal">
+      <img src="images/team.jpg?v=2" alt="Petricău Valentin — Fondator Studio VAAL" loading="lazy" decoding="async">
+    </div>
+    <div class="reveal">
+      <div class="label">Echipa</div>
+      <h2>Petricău Valentin</h2>
+      <div class="role">Fondator &amp; Designer de Interior</div>
+      <div class="bio">
+        <p>Cred că fiecare om își construiește o lume — iar rolul meu e să-i scot la lumină frumusețea.</p>
+        <p>Studio VAAL e povestea unei singure obsesii: spații în care oamenii se simt acasă din prima secundă.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="label">Hai să colaborăm</div>
+      <h2>Spațiul tău,<br><em>reimaginat</em>.</h2>
+      <p>Proiecte de design interior rezidențial și comercial. Spune-ne despre spațiul tău — răspundem rapid.</p>
+      <div class="btn-row">
+        <a class="btn primary" href="https://www.instagram.com/studio_vaal/" target="_blank" rel="noopener">
+          Instagram
+        </a>
+        <a class="btn ghost" href="mailto:stdvaal@gmail.com">Scrie-ne</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="brand">STUDIO VAL</span>
+    <span class="copy">© <span id="yr"></span> Studio VAL · Design Interior</span>
+    <span class="social"><a href="https://www.instagram.com/studio_vaal/" target="_blank" rel="noopener">Instagram ↗</a></span>
+  </div>
+</footer>
+
+<script>
+  document.documentElement.classList.remove('no-js');
+  document.documentElement.classList.add('js');
+
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', scrollY > innerHeight * 0.85);
+  addEventListener('scroll', onScroll, { passive:true }); onScroll();
+
+  // reveal
+  const io = new IntersectionObserver((es) => {
+    es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold:0.16, rootMargin:'0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // hero parallax
+  const heroImg = document.querySelector('.hero-img img');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (heroImg && !reduce) {
+    let raf = false;
+    addEventListener('scroll', () => {
+      if (raf) return; raf = true;
+      requestAnimationFrame(() => {
+        const y = Math.min(scrollY, innerHeight) * 0.18;
+        heroImg.style.transform = `translateY(${y}px)`;
+        raf = false;
+      });
+    }, { passive:true });
+  }
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
